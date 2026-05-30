@@ -88,7 +88,3 @@ pytest tests/ -v
 **Encadré par :** Dr Bouchoucha Lydia
 
 > École supérieure en Sciences et Technologies de l'Informatique et du Numérique (ESTIN)
-
-## Licence
-
-MIT
