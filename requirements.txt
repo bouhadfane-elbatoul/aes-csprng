@@ -1,0 +1,5 @@
+# Aucune dépendance externe — AES implémenté from scratch
+# Bibliothèques standard Python uniquement : hashlib, os, time, struct, math, platform, random
+
+# Pour lancer les tests unitaires :
+pytest>=7.0

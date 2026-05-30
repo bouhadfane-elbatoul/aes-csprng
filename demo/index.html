@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AES-128 CSPRNG — Démo</title>
+<style>
+  :root {
+    --bg:     #050a0f;
+    --panel:  #0b1520;
+    --border: #1a3a5c;
+    --accent: #00d4ff;
+    --green:  #00ff88;
+    --text:   #c8dde8;
+    --muted:  #4a7090;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 48px 56px;
+    max-width: 560px;
+    width: 90%;
+    text-align: center;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(0,212,255,0.1);
+    border: 1px solid rgba(0,212,255,0.3);
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+
+  h1 span { color: var(--accent); }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 40px;
+    text-align: left;
+  }
+
+  .feature {
+    background: rgba(0,212,255,0.04);
+    border: 1px solid rgba(0,212,255,0.1);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--text);
+  }
+
+  .feature .icon { color: var(--green); margin-right: 6px; }
+
+  .btn {
+    display: inline-block;
+    background: var(--accent);
+    color: #000;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 14px 40px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: opacity .2s, transform .2s;
+    letter-spacing: 0.3px;
+  }
+
+  .btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  .authors {
+    margin-top: 32px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .authors strong { color: var(--text); }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="badge">Projet Universitaire · ESTIN</div>
+  <h1>AES-128 <span>CSPRNG</span></h1>
+  <p class="subtitle">
+    Générateur de nombres pseudo-aléatoires cryptographiquement sûr<br>
+    basé sur AES-128 en mode CTR — implémenté from scratch en Python.
+  </p>
+
+  <div class="features">
+    <div class="feature"><span class="icon">✦</span>AES-128 from scratch</div>
+    <div class="feature"><span class="icon">✦</span>Mode CTR</div>
+    <div class="feature"><span class="icon">✦</span>Pool d'entropie SHA-256</div>
+    <div class="feature"><span class="icon">✦</span>Tests NIST SP 800-22</div>
+  </div>
+
+  <a class="btn" href="demo-full.html">Lancer la démo interactive →</a>
+
+  <div class="authors">
+    <strong>Réalisé par :</strong><br>
+    Bouhadfane Elbatoul <br>
+    <strong>Encadré par :</strong> Dr Bouchoucha Lydia
+  </div>
+</div>
+</body>
+</html>
