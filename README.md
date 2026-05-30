@@ -1,100 +1,93 @@
 # AES-128 CSPRNG
 
-Générateur de nombres pseudo-aléatoires cryptographiquement sûr (CSPRNG) basé sur AES-128 en mode CTR, implémenté from scratch en Python.
+> Générateur de nombres pseudo-aléatoires cryptographiquement sûr basé sur AES-128 en mode CTR — implémenté from scratch en Python.
 
-> Projet universitaire — École supérieure en Sciences et Technologies de l'Informatique et du Numérique  
-> Encadré par : Dr Bouchoucha Lydia
+## 🔴 Démo interactive en ligne
 
+[![Demo](https://img.shields.io/badge/Demo-Live-00d4ff?style=for-the-badge&logo=github)](https://bouhadfane-elbatoul.github.io/aes-csprng/demo-full.html)
+
+**👉 [Cliquer ici pour voir la démo](https://bouhadfane-elbatoul.github.io/aes-csprng/demo-full.html)**
+
+---
+
+## Aperçu
+
+### Interface principale — PRNG State & Controls
+![Demo Screenshot](docs/images/demo_screenshot.png)
+
+### Simulation d'attaque brute-force (mode démo 2¹⁶)
+![Attack Simulation](docs/images/attack_simulation.png)
+
+### Analyse de sécurité AES-128 (espace réel 2¹²⁸)
+![Security Analysis](docs/images/security_analysis.png)
 ---
 
 ## Architecture
 
 ```
-seed (256 bits)  →  key (128 bits) + counter (128 bits)
-                          ↓
-          block = AES_encrypt(key, counter)
-                    counter += 1
+seed (256 bits)
+  ├── key     = seed[0:16]   (128 bits)
+  └── counter = seed[16:32]  (128 bits)
+        ↓
+block = AES_encrypt(key, counter)
+counter += 1
 ```
 
-**Composants :**
-- `aes_core.py` — AES-128 from scratch (SubBytes, ShiftRows, MixColumns, AddRoundKey, Key Expansion)
-- `entropy.py` — Pool d'entropie multi-sources (temps, OS, CPU jitter, souris, réseau, plateforme) → SHA-256
-- `csprng.py` — Générateur AES-CTR avec reseeding automatique
-- `nist_tests.py` — Tests statistiques NIST SP 800-22 (Frequency Monobit + Runs Test)
+## Structure du projet
 
----
+```
+aes-csprng/
+├── src/
+│   ├── aes_core.py       # AES-128 from scratch
+│   ├── csprng.py         # Générateur AES-CTR
+│   ├── entropy.py        # Pool d'entropie SHA-256
+│   ├── nist_tests.py     # Tests NIST SP 800-22
+│   └── demo.py           # Script démo CLI
+├── tests/
+│   ├── test_aes.py       # Vecteurs officiels NIST
+│   └── test_csprng.py    # Tests du générateur
+├── demo/
+│   ├── index.html        # Page d'accueil
+│   └── demo-full.html    # Visualisation interactive
+└── docs/
+    ├── rapport.pdf
+    └── images/
+```
 
-## Lancer la démo
+## Lancer la démo CLI
 
 ```bash
-python src/demo.py
+python -m src.demo
 ```
-
-Exemple de sortie :
-
-```
-════════════════════════════════════════════════════════════════════
-  AES-128 CSPRNG – Demonstration
-════════════════════════════════════════════════════════════════════
-
-[1] Collecting entropy from multiple sources …
-    Entropy gathered in 12.4 ms
-    SHA-256 seed : a3f1c8...
-
-[2] Initialising AES-128 CTR-PRNG …
-[3] First 10 generated 128-bit pseudo-random values:
-...
-[4] Randomness tests (NIST SP 800-22):
-    Result : PASS ✓
-```
-
----
 
 ## Lancer les tests
 
 ```bash
 pip install pytest
-pytest tests/
+pytest tests/ -v
 ```
 
----
+## Résultats NIST SP 800-22
 
-## Démo visuelle (web)
-
-Ouvrir `demo/demo-full.html` dans un navigateur — aucune installation requise.
-
----
-
-## Tests statistiques (NIST SP 800-22)
-
-| Test | Bits testés | Résultat |
-|------|------------|---------|
-| Frequency Monobit | 20 000 | PASS ✓ |
-| Runs Test | 20 000 | PASS ✓ |
-
----
+| Test | Bits testés | p-value | Résultat |
+|------|------------|---------|---------|
+| Frequency Monobit | 20 000 | 0.755 | PASS ✓ |
+| Runs Test | 20 000 | 0.534 | PASS ✓ |
 
 ## Sécurité
 
-- Clé AES 128 bits — résistante à la force brute
-- Compteur 128 bits — période maximale de 2¹²⁸ blocs
+- Clé AES 128 bits
+- Compteur 128 bits — période 2¹²⁸ blocs
 - Reseeding automatique après 2⁴⁸ blocs
-- Seed dérivé de sources d'entropie multiples via SHA-256
-
----
-
-## Références
-
-- NIST FIPS 197 — Advanced Encryption Standard (AES)
-- NIST SP 800-90A Rev.1 — Deterministic Random Bit Generators
-- NIST SP 800-22 — Statistical Tests for Random Number Generators
-- Daemen & Rijmen — *The Design of Rijndael*, Springer 2002
-
----
+- Seed dérivé via SHA-256 depuis 6 sources d'entropie
 
 ## Auteurs
 
-Bouhadfane Elbatoul
+**Réalisé par :** Bouhadfane Elbatoul 
+
+**Encadré par :** Dr Bouchoucha Lydia
+
+> École supérieure en Sciences et Technologies de l'Informatique et du Numérique (ESTIN)
 
 ## Licence
 
